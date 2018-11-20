@@ -2,6 +2,9 @@ package com.example.dell.weatherapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,44 +23,76 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private String url;
     private TextView responseTxt;
+    private int cityID;
+    int[] citiesID;
+    private RecyclerView cityL;
+    private LinearLayoutManager linearLayoutManager;
+    private DividerItemDecoration dividerItemDecoration;
+    private List<CityCurrent> cityList;
+    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        responseTxt = findViewById(R.id.testTxt);
-        url = "http://openweathermap.org/data/2.5/forecast?id=2643741&appid=b6907d289e10d714a6e88b30761fae22&units=metric";
-        getData();
+
+        citiesID = new int[]{2643743, 5332921, 6356055, 1850147, 6455259};
+
+        cityL = findViewById(R.id.citiesRV);
+        cityList = new ArrayList<>();
+        adapter = new CityAdapter(getApplicationContext(), cityList);
+        linearLayoutManager = new LinearLayoutManager( this );
+        linearLayoutManager.setInitialPrefetchItemCount( LinearLayoutManager.VERTICAL );
+        dividerItemDecoration = new DividerItemDecoration( cityL.getContext(), linearLayoutManager.getOrientation() );
+
+        cityL.setHasFixedSize( true );
+        cityL.setLayoutManager( linearLayoutManager );
+        cityL.addItemDecoration( dividerItemDecoration );
+        cityL.setAdapter( adapter );
+
+        for(int i = 0; i < 5 ; i++){
+            url = "http://openweathermap.org/data/2.5/weather?id=" + citiesID[i] + "&appid=b6907d289e10d714a6e88b30761fae22&units=metric";
+            get5cities(citiesID[i]);
+        }
+
     }
 
-    private void getData() {
+    private void get5cities(int cityID){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
 
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("list");
-                            for(int i=0; i<jsonArray.length(); i++){
-                                JSONObject listObject = jsonArray.getJSONObject(i);
-                                JSONObject mainObject = listObject.getJSONObject("main");
-                                String temperature = mainObject.getString("temp");
-                                Log.i("temp ", temperature);
-                                responseTxt.setText(temperature + " ");
-                            }
-                            Log.i("responseeee", response.toString());
-                            //responseTxt.setText(response.toString());
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    CityCurrent cityCurrent = new CityCurrent();
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                        }
+                    cityCurrent.setCityID(response.getInt("id"));
+                    cityCurrent.setCityName(response.getString("name"));
+                    cityCurrent.setTemp_min(response.getJSONObject("main").getString("temp_min"));
+                    cityCurrent.setTemp_max(response.getJSONObject("main").getString("temp_max"));
+                    cityCurrent.setWeatherDesc(response.getJSONArray("weather").getJSONObject(0).getString("main"));
+                    cityList.add(cityCurrent);
+                    Log.i("responseeee", response.toString());
+                    Log.i("city id", response.getString("id"));
+                    Log.i("city name", response.getString("name"));
+                    Log.i("temp min", response.getJSONObject("main").getString("temp_min"));
+                    Log.i("temp max", response.getJSONObject("main").getString("temp_max"));
+                    Log.i("desc", response.getJSONArray("weather").getJSONObject(0).getString("main"));
+                    Toast.makeText(MainActivity.this, "list size:" + cityList.size(), Toast.LENGTH_SHORT).show();
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+                adapter.notifyDataSetChanged();
+            }
 
-                    }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -67,4 +102,37 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
+
+//    private void getData() {
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//
+//                        try {
+//                            JSONArray jsonArray = response.getJSONArray("list");
+//                            for(int i=0; i<jsonArray.length(); i++){
+//                                JSONObject listObject = jsonArray.getJSONObject(i);
+//                                JSONObject mainObject = listObject.getJSONObject("main");
+//                                String temperature = mainObject.getString("temp");
+//                                Log.i("temp ", temperature);
+//                                responseTxt.setText(temperature + " ");
+//                            }
+//                            Log.i("responseeee", response.toString());
+//                            //responseTxt.setText(response.toString());
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                    }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e("Volley", error.toString());
+//            }
+//        });
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        requestQueue.add(jsonObjectRequest);
+//    }
 }
