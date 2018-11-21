@@ -1,12 +1,11 @@
 package com.example.dell.weatherapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -61,18 +60,17 @@ public class ForecastActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-
                     JSONArray listArray = response.getJSONArray("list");
-                    Toast.makeText(ForecastActivity.this, "json list size : " + listArray.length(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ForecastActivity.this, "json list size : " + listArray.length(), Toast.LENGTH_SHORT).show();
                     for(int i = 0; i < listArray.length(); i++){
                         DayForecast dayForecast = new DayForecast();
                         JSONObject listObject = listArray.getJSONObject(i);
                         JSONObject mainObject = listObject.getJSONObject("main");
 
-                        dayForecast.setTemp_min(mainObject.getString("temp_min"));
-                        dayForecast.setTemp_max(mainObject.getString("temp_max"));
+                        dayForecast.setTemp_min(Double.parseDouble(mainObject.getString("temp_min")));
+                        dayForecast.setTemp_max(Double.parseDouble(mainObject.getString("temp_max")));
                         dayForecast.setWeather_desc(listObject.getJSONArray("weather").getJSONObject(0).getString("description"));
-                        dayForecast.setWind_speed(listObject.getJSONObject("wind").getString("speed"));
+                        dayForecast.setWind_speed(Math.round(Double.parseDouble(listObject.getJSONObject("wind").getString("speed"))));
                         dayForecast.setDate(listObject.getString("dt_txt").substring(0, 10));
 
                         Log.i("list_object", listObject.toString());
@@ -81,15 +79,12 @@ public class ForecastActivity extends AppCompatActivity {
                             dayList.add(dayForecast);
                             tempDate = listObject.getString("dt_txt").substring(0, 10);
                         }
-
-                        //Toast.makeText(ForecastActivity.this, "list size:" + dayList.size(), Toast.LENGTH_SHORT).show();
                     }
 
                     Log.i("forecast_response", response.toString());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(ForecastActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                 }
                 adapter.notifyDataSetChanged();
             }

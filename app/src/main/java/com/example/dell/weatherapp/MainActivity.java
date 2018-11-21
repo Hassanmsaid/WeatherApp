@@ -1,25 +1,20 @@
 package com.example.dell.weatherapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.Response.ErrorListener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,8 +24,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private String url;
-    private TextView responseTxt;
-    private int cityID;
     int[] citiesID;
     private RecyclerView cityL;
     private LinearLayoutManager linearLayoutManager;
@@ -43,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        citiesID = new int[]{2643743, 5332921, 6356055, 1850147, 6455259};
+        citiesID = new int[]{2643743, 5332921, 6356055, 1850147, 6455259, 5128638, 360630, 745044};
 
         cityL = findViewById(R.id.citiesRV);
         cityList = new ArrayList<>();
@@ -58,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         cityL.addItemDecoration( dividerItemDecoration );
         cityL.setAdapter( adapter );
 
-        for(int i = 0; i < 5 ; i++){
+        for(int i = 0; i < citiesID.length ; i++){
             url = "http://openweathermap.org/data/2.5/weather?id=" + citiesID[i] + "&appid=b6907d289e10d714a6e88b30761fae22&units=metric";
             get5cities(citiesID[i]);
         }
@@ -85,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("temp min", response.getJSONObject("main").getString("temp_min"));
                     Log.i("temp max", response.getJSONObject("main").getString("temp_max"));
                     Log.i("desc", response.getJSONArray("weather").getJSONObject(0).getString("main"));
-                    Toast.makeText(MainActivity.this, "list size:" + cityList.size(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "list size:" + cityList.size(), Toast.LENGTH_SHORT).show();
                 }
                 catch (JSONException e){
                     e.printStackTrace();

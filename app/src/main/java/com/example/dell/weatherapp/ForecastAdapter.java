@@ -30,10 +30,11 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final DayForecast dayForecast = list.get(i);
-        viewHolder.wind.setText(dayForecast.getWind_speed());
-        viewHolder.temps.setText(dayForecast.getTemp_min() + (char) 0x00B0 + " | " + dayForecast.getTemp_max() + (char) 0x00B0);
+        viewHolder.wind.setText("wind speed: " + dayForecast.getWind_speed());
+        viewHolder.temps.setText(String.valueOf(dayForecast.getTemp_min()) + (char) 0x00B0 + " | " + String.valueOf(dayForecast.getTemp_max()) + (char) 0x00B0);
+        //viewHolder.temps.setText(String.valueOf(dayForecast.getTemp_min()) + (char) 0x00B0);
         viewHolder.desc.setText(dayForecast.getWeather_desc());
-        viewHolder.date.setText(dayForecast.getDate());
+        viewHolder.date.setText(dayForecast.getDate().substring(5,10));
     }
 
     @Override

@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="15dp"
+    android:background="#000">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -14,16 +15,16 @@
             android:id="@+id/forecastTempsTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:textSize="15sp"
+            android:textColor="#2E85E8"
+            android:textSize="20sp"
             android:text="21/11"/>
 
         <TextView
             android:id="@+id/forecastWindTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:textSize="15sp"
+            android:textColor="#2E85E8"
+            android:textSize="20sp"
             android:text="wind: 21 km/h"
             android:layout_alignParentRight="true"/>
 
@@ -31,18 +32,20 @@
             android:id="@+id/forecastDescTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:textSize="15sp"
+            android:textColor="#2E85E8"
+            android:textSize="20sp"
             android:text="Rain"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/forecastTempsTV"/>
 
         <TextView
             android:id="@+id/forecastDateTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:textSize="15sp"
+            android:textColor="#fff"
+            android:textSize="18sp"
             android:text="21/11"
+            android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/forecastWindTV"/>
     </RelativeLayout>
