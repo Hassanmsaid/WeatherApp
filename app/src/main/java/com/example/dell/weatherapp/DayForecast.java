@@ -1,55 +1,59 @@
 package com.example.dell.weatherapp;
 
 public class DayForecast {
-    private double temp_min, temp_max, temp_avg, humidity, wind_speed;
-    private String weather_desc;
+    private String temp_min, temp_max, temp_avg, humidity, wind_speed, weather_desc, date;
 
-    public DayForecast(double temp_min, double temp_max, double temp_avg, double humidity, double wind_speed, String weather_desc) {
+    public DayForecast(){
+
+    }
+
+    public DayForecast(String temp_min, String temp_max, String temp_avg, String humidity, String wind_speed, String weather_desc, String date) {
         this.temp_min = temp_min;
         this.temp_max = temp_max;
         this.temp_avg = temp_avg;
         this.humidity = humidity;
         this.wind_speed = wind_speed;
         this.weather_desc = weather_desc;
+        this.date = date;
     }
 
-    public double getTemp_min() {
+    public String getTemp_min() {
         return temp_min;
     }
 
-    public void setTemp_min(double temp_min) {
+    public void setTemp_min(String temp_min) {
         this.temp_min = temp_min;
     }
 
-    public double getTemp_max() {
+    public String getTemp_max() {
         return temp_max;
     }
 
-    public void setTemp_max(double temp_max) {
+    public void setTemp_max(String temp_max) {
         this.temp_max = temp_max;
     }
 
-    public double getTemp_avg() {
+    public String getTemp_avg() {
         return temp_avg;
     }
 
-    public void setTemp_avg(double temp_avg) {
+    public void setTemp_avg(String temp_avg) {
         this.temp_avg = temp_avg;
     }
 
-    public double getHumidity() {
+    public String getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(double humidity) {
+    public void setHumidity(String humidity) {
         this.humidity = humidity;
     }
 
-    public double getWind_speed() {
+    public String getWind_speed() {
         return wind_speed;
     }
 
-    public void setWind_speed(double wind_speed) {
+    public void setWind_speed(String wind_speed) {
         this.wind_speed = wind_speed;
     }
 
@@ -59,5 +63,13 @@ public class DayForecast {
 
     public void setWeather_desc(String weather_desc) {
         this.weather_desc = weather_desc;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

@@ -38,6 +38,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, ForecastActivity.class);
+                i.putExtra("cityID", cityCurrent.getCityID());
                 context.startActivity(i);
             }
         });

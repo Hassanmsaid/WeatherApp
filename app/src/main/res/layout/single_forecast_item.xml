@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/forecastParent">
+
+        <TextView
+            android:id="@+id/forecastTempsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:text="21/11"/>
+
+        <TextView
+            android:id="@+id/forecastWindTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:text="wind: 21 km/h"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:id="@+id/forecastDescTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:text="Rain"
+            android:layout_below="@+id/forecastTempsTV"/>
+
+        <TextView
+            android:id="@+id/forecastDateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:text="21/11"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/forecastWindTV"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>

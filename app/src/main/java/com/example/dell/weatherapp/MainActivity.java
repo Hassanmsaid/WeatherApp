@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
             }
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -102,37 +101,4 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
-
-//    private void getData() {
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//
-//                        try {
-//                            JSONArray jsonArray = response.getJSONArray("list");
-//                            for(int i=0; i<jsonArray.length(); i++){
-//                                JSONObject listObject = jsonArray.getJSONObject(i);
-//                                JSONObject mainObject = listObject.getJSONObject("main");
-//                                String temperature = mainObject.getString("temp");
-//                                Log.i("temp ", temperature);
-//                                responseTxt.setText(temperature + " ");
-//                            }
-//                            Log.i("responseeee", response.toString());
-//                            //responseTxt.setText(response.toString());
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                    }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e("Volley", error.toString());
-//            }
-//        });
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        requestQueue.add(jsonObjectRequest);
-//    }
 }
